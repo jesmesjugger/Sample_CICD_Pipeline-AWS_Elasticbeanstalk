@@ -1,0 +1,43 @@
+version: 0.2
+
+phases:
+  install:
+    on-failure: ABORT
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - echo setting up the runtime
+    finally:
+      - echo runtime installed successfully
+
+  pre_build:
+    on-failure: ABORT
+    commands:
+      - echo initializing the runtime environment
+    finally:
+      - echo runtime configured successfully
+  build:
+    on-failure: ABORT
+    commands:
+      - npm install
+    finally:
+      - echo starting building
+  post_build:
+    on-failure: ABORT
+    commands:
+      - echo build succeeded
+    finally:
+      - echo exiting build process
+# reports:
+#   report-group-name-or-arn:
+#     files:
+#       - location
+#       - location
+#     base-directory: location
+#     discard-paths: no | yes
+#     file-format: report-format
+artifacts:
+  files:
+    - '**/*'
+  name: devops-poc
+  discard-paths: yes
